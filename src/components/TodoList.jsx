@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TodoItem from "./TodoItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getTodosAsync } from "../redux/features/TodoSlice";
 
 const TodoList = () => {
+  const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
 
-  // const todos = [
-  //   { id: 1, title: "todo1", completed: false },
-  //   { id: 2, title: "todo2", completed: false },
-  //   { id: 3, title: "todo3", completed: true },
-  // ];
+  useEffect(() => {
+    dispatch(getTodosAsync());
+  }, [dispatch]);
+
   return (
     <ul>
       {todos.map((todo) => (
